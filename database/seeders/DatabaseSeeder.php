@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {   $this->call(UserTableSeeder::class);
-        \App\Models\User::factory(200)->create();
-        $this->call(TabelaTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
+    {  \App\Models\User::factory(200)->create();
+        $this->call(TabelaTableSeeder::class);        
         $this->call(ResourceTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
+        $this->call(UserTableSeeder::class);
         
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

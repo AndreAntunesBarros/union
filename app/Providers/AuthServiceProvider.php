@@ -27,17 +27,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-      /* if(!Schema::hasTable('resources')) {
-        
-            return false;
-
-       }; */ // evitar erro ao usar migrate:refresh
-       
-        $roles  = Role::all();
-        $resources = Resource::with('roles')->get();
-        
-     
-       // dd($resources);
+      if (Schema::hasTable('roles'))
+        {
+          
+          $roles  = Role::all();
+          $resources = Resource::with('roles')->get();    
             foreach($resources as $resource){
                   
                     Gate::define( $resource->resource ,function($user) use ($resource){
@@ -46,10 +40,8 @@ class AuthServiceProvider extends ServiceProvider
         
             }
             
-            //dd(Gate::abilities());
-       
- 
-       
-     //  dd(Gate::abilities());
+      
     }
+
+  }
 }
