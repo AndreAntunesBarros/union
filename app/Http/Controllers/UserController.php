@@ -76,12 +76,14 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
+
+        
         try {
             $user  = User::findOrFail($id);
             $dados = $request->all();
-          //dd($dados['password']);
+          
             if(!$dados['password']){
                
                 $dados['password'] = $user->password;
@@ -98,9 +100,11 @@ class UserController extends Controller
             $user->roles()->sync($role_id);
             flash('Atualizado com sucesso')->success()->important();  
             return redirect()->back();
+
+
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';           
-            flash($message)->warning()->important();          
+            flash($message)->warning()->important();
             return redirect()->back();
         }
     }

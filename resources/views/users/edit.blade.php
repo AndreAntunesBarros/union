@@ -11,12 +11,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+            <div class="row">
+                        <div class="col-sm-12 col-md-12"> @include('flash::message') </div>
 
+                    </div>
                 <div class="col-md-12">
 
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Formulário Tipo Usuário</h3>
+                            <h3 class="card-title">Formulário  Usuário</h3>
                         </div>
 
 
