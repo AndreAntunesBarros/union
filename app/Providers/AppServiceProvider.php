@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Illuminate\Contracts\Events\Dispatcher;
-use \App\User;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,67 +24,55 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFour();
 
         //menu do template adminlte
-       
-        $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-           
-            
-            $event->menu->add([
-                'header' => 'MENU DE NAVEGAÇÃO ',
-                
 
-                
-                ]);
-                
+        $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
+
+
             $event->menu->add([
-                'text'      =>      'Início',
+                'header' => 'Menu ',
+                ]);
+
+            $event->menu->add([
+                'text'      =>      'Dashboard',
                 'url'     =>      '/dashboard',
-                'icon'          => ' fa fa-heart',
+                'icon'          => ' fa fa-home',
             ]);
             $event->menu->add([
                 'text'      =>      'Cadastros',
                 'route'     =>      'users.index',
                 'icon'          => ' fa fa-clipboard',
-                
-                
+
+
                 'submenu'   =>  [
+                    // [
+                    //     'text'      =>      'Perfis',
+                    //     'route' => ['users.show', ['user' => 100]],
+                    //     'can'     =>      'users.show',
+                    //     'icon'          => ' fa fa-user',
+
+                    // ],
                     [
-                        'text'      =>      'PERFIL',
-                        'route' => ['users.show', ['user' => 100]],
-                        'can'     =>      'users.show',
-                        'icon'          => ' fa fa-user',
-                       // 'active'        => ['users/create','users/*/edit' ],
-                        
-                    ],
-                    [
-                        'text'      =>      'USUÁRIOS',
+                        'text'      =>      'Usuários',
                         'route'     =>      'users.index',
                         'can'     =>      'users.index',
                         'icon'          => ' fa fa-users',
                         'active'        => ['users/create','users/*/edit' ],
-                        
+
                     ],
                     [
-                        'text'      =>      'FUNÇÃO',
+                        'text'      =>      'Funções',
                         'route'     =>      'roles.index',
                         'can'     =>      'roles.index',
                         'icon'          => ' fa fa-cogs',
                         'active'        => ['roles/create','roles/*/edit' ],
-                        
-                    ],
-                    [
-                        'text'      =>      'TABELAS',
-                        'route'     =>      'tabelas.index',
-                        'can'     =>      'tabelas.index',
-                        'icon'          => ' fa fa-table',
-                        'active'        => ['tabelas/create','tabelas/*/edit' ],
-                        
+
                     ]
                 ]
-                
+
             ]);
-           
+
 
         });
-        
+
     }
 }

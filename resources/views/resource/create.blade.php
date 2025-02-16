@@ -1,7 +1,7 @@
 
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', config('app.name'))
 
 @section('content_header')
 <h1 class="m-0 text-dark">Dashboard</h1>
@@ -36,22 +36,22 @@
                                         placeholder="Digite um tipo de usuário">
                                 </div>
 
-                             
+
 
                                 <!-- inicio permissoes -->
                                 <div class="form-group">
                                     <label for="resource">Descrição</label>
                                     <select class="form-control" aria-label="Default select example" name="tabela_id">
-                                        
+
                                         <option selected>Escolha uma tabela</option>
                                        @foreach($tabelas as $tabela)
                                          <option value="{{$tabela->id}}">{{$tabela->name}}</option>
                                         @endforeach
-                                    
-                                        
+
+
                                     </select>
                                 </div>
-                               
+
 
                                 <!-- fim permissoes -->
 

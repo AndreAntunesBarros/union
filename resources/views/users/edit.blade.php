@@ -1,10 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
-
-@section('content_header')
-<h1 class="m-0 text-dark">Dashboard</h1>
-@stop
+@section('title', config('app.name'))
 
 @section('content')
 <div class="row">
@@ -19,7 +15,7 @@
 
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Formulário  Usuário</h3>
+                            <h3 class="card-title">Edição de Usuário</h3>
                         </div>
 
 
@@ -72,7 +68,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
                             </div>
                         </form>
                     </div>

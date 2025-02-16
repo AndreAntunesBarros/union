@@ -13,14 +13,14 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    { 
+    {
         //->orderBy('created_at','DESC');
         $users = User::orderBy('created_at','desc')->paginate(10);
-        
+
         $user = User::find(1);
 
-        
-       
+
+
         return view('users.index',compact('users'));
     }
 
@@ -43,10 +43,10 @@ class UserController extends Controller
             $user->roles()->syncWithoutDetaching($request->role_id);
             flash('usuario cadastrado com sucesso')->success()->important();
             return redirect()->back();
-        
-           
+
+
         } catch (\Throwable $th) {
-            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';           
+            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
             flash($message)->warning()->important();
             return redirect()->back();
         }
@@ -79,16 +79,16 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
 
-        
+
         try {
             $user  = User::findOrFail($id);
             $dados = $request->all();
-          
+
             if(!$dados['password']){
-               
+
                 $dados['password'] = $user->password;
             }
-           
+
 
             $user->update($dados);
 
@@ -98,12 +98,12 @@ class UserController extends Controller
                $role_id =[];
           }
             $user->roles()->sync($role_id);
-            flash('Atualizado com sucesso')->success()->important();  
+            flash('Atualizado com sucesso')->success()->important();
             return redirect()->back();
 
 
         } catch (\Throwable $th) {
-            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';           
+            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
             flash($message)->warning()->important();
             return redirect()->back();
         }
@@ -120,7 +120,7 @@ class UserController extends Controller
 
 
         } catch (\Throwable $th) {
-            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';           
+            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
             flash($message)->warning()->important();
             return redirect()->back();
         }

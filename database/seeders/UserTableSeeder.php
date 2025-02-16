@@ -15,28 +15,10 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        /*DB::table('users')->insert([
-            [
-                'name' => 'Administrador do sistema',
-                'email' => 'adminstrador@email.com',               
-                'password' => bcrypt('teste123'),
-                'remember_token' => Str::random(10),
-                'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-            ],
-            [
-                'name' => 'Cliente',
-                'email' => 'cliente@email.com',                
-                'password' => bcrypt('teste123'),
-                'remember_token' => Str::random(10),
-                'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-            ],
-        ]);*/
 
         $user =   User::create([
                 'name' => 'Administrador do sistema',
-                'email' => 'adminstrador@email.com',               
+                'email' => 'adminstrador@email.com',
                 'password' => bcrypt('password'),
                 'remember_token' => Str::random(10),
                 'created_at'    => date('Y-m-d H:i:s'),
@@ -45,6 +27,6 @@ class UserTableSeeder extends Seeder
         ]);
             $roles = Role::all();
             $user->roles()->saveMany($roles);
-        
+
     }
 }

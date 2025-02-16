@@ -1,10 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
-
-@section('content_header')
-<h1 class="m-0 text-dark">Dashboard</h1>
-@stop
+@section('title', config('app.name'))
 
 @section('content')
 <div class="row">
@@ -16,7 +12,7 @@
 
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Tipo Usuário - Atualização</h3> 
+                            <h3 class="card-title">Edição de Função</h3>
                         </div>
 
 
@@ -91,12 +87,10 @@
                             </div>
 
                             <div class="card-footer">
-                            
-                             
 
-                                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                                <a href="{{route('permissoes.create')}}" class="btn btn-success">Cadastrar Permissões</a>
-                               
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                                {{-- <a href="{{route('permissoes.create')}}" class="btn btn-success">Cadastrar Permissões</a> --}}
+
                             </div>
                         </form>
                     </div>

@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Funções')
 
 
 @section('content_header')
-<h1 class="m-0 text-dark">FUNÇÕES</h1>
+<h1 class="m-0 text-dark">Funções</h1>
 @stop
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Lista de funções</h3>
+        <h3 class="card-title">Lista de Funções</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -27,8 +27,8 @@
             <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">  @include('flash::message')</div>
-                            
-                            
+
+
               </div>
         <table class="table table-head-fixed text-nowrap">
             <thead>
@@ -38,11 +38,12 @@
                     <th>Descrição</th>
                     <th>Permissões</th>
                     <th class="col-1 ">
-                        <a href="{{route('roles.create')}}" class='btn btn-block btn-success btn-sm' data-toggle="tooltip" title='Cadastra uma nova funcao' > 
-                                                    <i class="fas  fa-clipboard">
-                                                    </i>
-                                                    Nova Funcao</a></th>
-
+                        <a href="{{route('roles.create')}}" class='btn btn-block btn-success btn-sm' data-toggle="tooltip" title='Cadastra uma nova funcao' >
+                            <i class="fas  fa-clipboard">
+                            </i>
+                            Nova
+                        </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +51,7 @@
                 <tr>
                     <td>{{$role->id}}</td>
                     <td>{{$role->name}}</td>
-                    <td><a href="http://" title='Cadastra uma nova funcao'>{{$role->role}}</a></td>
+                    <td>{{$role->role}}</td>
                     <td>
                         @if($role->resources->count())
 
@@ -59,8 +60,6 @@
                         <span>Não possui permissões</span>
 
                         @endif
-                        </br>
-                        Clique em <a href="{{route('roles.edit',[$role->id])}}">editar</a> para adicionar ou remover as permissões
 
                     </td>
                     <th class="project-actions text-right">
@@ -74,7 +73,7 @@
                             </i>
                             Excluir
                         </a>
-                      
+
 
                     </th>
 
@@ -92,20 +91,6 @@
                 @endforelse
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Permissões </th>
-                    <th>  <a href="{{route('roles.create')}}"
-                                                    class='btn btn-block btn-success btn-sm'> 
-                                                    <i class="fas  fa-clipboard">
-                                                    </i>
-                                                    Nova Funcao</a></th>
-
-                </tr>
-            </tfoot>
 
         </table>
     </div>

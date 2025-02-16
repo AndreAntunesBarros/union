@@ -65,7 +65,7 @@ class ResourceTableSeeder extends Seeder
                 'updated_at'    => date('Y-m-d H:i:s'),
                 'tabela_id'     => 2
             ],
-            
+
             //users
             [
                 'name'          => 'Listar os Usuários.',
@@ -165,57 +165,6 @@ class ResourceTableSeeder extends Seeder
                  'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
                 'tabela_id'     => 3
-            ],
-
-            //TABELAS
-            [
-                'name'          => 'Listar as tabelas do banco de dados.',
-                'resource'      =>'tabelas.index',
-                 'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-                'tabela_id'     => 4
-            ],
-            [
-                'name'      =>'Formulário Criar uma nova tabela.',
-                'resource'      =>'tabelas.create',
-                 'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-                'tabela_id'     => 4
-            ],
-            [
-                'name'      =>'Gravar uma nova tabela no banco de dados.',
-                'resource'      =>'tabelas.store',
-                 'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-                'tabela_id'     => 4
-            ],
-            [
-                'name'      =>'Visualizar uma tabela.',
-                'resource'      =>'tabelas.show',
-                 'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-                'tabela_id'     => 4
-            ],
-            [
-                'name'      =>'Formulário edição de uma tabela',
-                'resource'      =>'tabelas.edit',
-                 'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-                'tabela_id'     => 4
-            ],
-            [
-                'name'      =>'Atualizar uma tabela no banco de dados.',
-                'resource'      =>'tabelas.update',
-                 'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-                'tabela_id'     => 4
-            ],
-            [
-                'name'      =>'Excluir uma tabela',
-                'resource'      =>'tabelas.destroy',
-                 'created_at'    => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s'),
-                'tabela_id'     => 4
             ],
         ]);
     }

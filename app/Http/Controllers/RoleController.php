@@ -14,15 +14,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-       /* if(Gate::denies('roles.index')){
-            return dd('nao tenho autorizacao');
-        }*/
-      //$users = User::paginate(15);
-      
-
-        
       $roles=  Role::paginate(15);
-        
+
       return view('role.index',compact('roles'));
     }
 
@@ -40,20 +33,18 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-       
-       
         try {
-           
+
             $dados          =   $request->all();
             $role           =   Role::create($dados);
             $role->resources()->syncWithoutDetaching($request->resource_id);
-            flash('Função cadastrada com uscesso')->success();
+            flash('Função cadastrada com sucesso')->success();
             return redirect()->back();
 
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';
-            flash($message)->success();
-          
+            flash($message)->error();
+
         }
     }
 
@@ -74,11 +65,8 @@ class RoleController extends Controller
         $resource  = new Resource();
         $tabelas =   Tabela::all();
         $resources_list =     $resource->all();
-        
-      
-      
 
-       
+        dump(session()->all());
 
         return view('role.edit', compact('role', 'resources_list','tabelas'));
     }
@@ -91,29 +79,27 @@ class RoleController extends Controller
         try {
            $role    =   Role::find($id);
            $dados   =   $request->all();
-          
-           //verifi se veio algum valor dos campos checkbox, senao atribui um array vazio para o campo 
+
+           //verificando se veio algum valor dos campos checkbox, senao atribui um array vazio para o campo
            if(isset($dados['resource_id'])){
                  $resources_id = $dados['resource_id'];
            }else{
                 $resources_id =[];
            }
-          
-          
-            
+
            $role->update($dados);
            $role->resources()->sync($resources_id);
-           
+
+           flash('Função editada com sucesso')->success();
+
+           //dd(session()->all());
+
            return redirect()->back();
 
         } catch (\Throwable $th) {
-
-           
-            $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';
-            dd($message );
-            //flash($message)->warning();
+            $message = env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
+            flash($message)->error();
             return redirect()->back();
-            //throw $th;
         }
     }
 
