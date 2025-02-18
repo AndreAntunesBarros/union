@@ -1946,7 +1946,7 @@
   var EVENT_COLLAPSED$1 = "collapsed" + EVENT_KEY$2;
   var EVENT_COLLAPSED_DONE = "collapsed-done" + EVENT_KEY$2;
   var EVENT_SHOWN = "shown" + EVENT_KEY$2;
-  var SELECTOR_TOGGLE_BUTTON$1 = '[data-widget="pushmenu"]';
+  //var SELECTOR_TOGGLE_BUTTON$1 = '[data-widget="pushmenu"]';
   var SELECTOR_BODY = 'body';
   var SELECTOR_OVERLAY = '#sidebar-overlay';
   var SELECTOR_WRAPPER = '.wrapper';
@@ -2128,19 +2128,19 @@
    */
 
 
-  $__default["default"](document).on('click', SELECTOR_TOGGLE_BUTTON$1, function (event) {
-    event.preventDefault();
-    var button = event.currentTarget;
+//   $__default["default"](document).on('click', SELECTOR_TOGGLE_BUTTON$1, function (event) {
+//     event.preventDefault();
+//     var button = event.currentTarget;
 
-    if ($__default["default"](button).data('widget') !== 'pushmenu') {
-      button = $__default["default"](button).closest(SELECTOR_TOGGLE_BUTTON$1);
-    }
+//     if ($__default["default"](button).data('widget') !== 'pushmenu') {
+//       button = $__default["default"](button).closest(SELECTOR_TOGGLE_BUTTON$1);
+//     }
 
-    PushMenu._jQueryInterface.call($__default["default"](button), 'toggle');
-  });
-  $__default["default"](window).on('load', function () {
-    PushMenu._jQueryInterface.call($__default["default"](SELECTOR_TOGGLE_BUTTON$1));
-  });
+//     PushMenu._jQueryInterface.call($__default["default"](button), 'toggle');
+//   });
+//   $__default["default"](window).on('load', function () {
+//     PushMenu._jQueryInterface.call($__default["default"](SELECTOR_TOGGLE_BUTTON$1));
+//   });
   /**
    * jQuery API
    * ====================================================
@@ -2464,7 +2464,7 @@
   var NAME$3 = 'NavbarSearch';
   var DATA_KEY$3 = 'lte.navbar-search';
   var JQUERY_NO_CONFLICT$3 = $__default["default"].fn[NAME$3];
-  var SELECTOR_TOGGLE_BUTTON = '[data-widget="navbar-search"]';
+  //var SELECTOR_TOGGLE_BUTTON = '[data-widget="navbar-search"]';
   var SELECTOR_SEARCH_BLOCK = '.navbar-search-block';
   var SELECTOR_SEARCH_INPUT = '.form-control';
   var CLASS_NAME_OPEN$1 = 'navbar-search-open';
@@ -2535,16 +2535,16 @@
    */
 
 
-  $__default["default"](document).on('click', SELECTOR_TOGGLE_BUTTON, function (event) {
-    event.preventDefault();
-    var button = $__default["default"](event.currentTarget);
+//   $__default["default"](document).on('click', SELECTOR_TOGGLE_BUTTON, function (event) {
+//     event.preventDefault();
+//     var button = $__default["default"](event.currentTarget);
 
-    if (button.data('widget') !== 'navbar-search') {
-      button = button.closest(SELECTOR_TOGGLE_BUTTON);
-    }
+//     if (button.data('widget') !== 'navbar-search') {
+//       button = button.closest(SELECTOR_TOGGLE_BUTTON);
+//     }
 
-    NavbarSearch._jQueryInterface.call(button, 'toggle');
-  });
+//     NavbarSearch._jQueryInterface.call(button, 'toggle');
+//   });
   /**
    * jQuery API
    * ====================================================

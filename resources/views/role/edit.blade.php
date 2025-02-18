@@ -2,6 +2,21 @@
 
 @section('title', config('app.name'))
 
+@include('flash::message')
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            let flashMessages = document.querySelectorAll('.alert');
+            flashMessages.forEach(function (message) {
+                message.style.transition = "opacity 0.5s";
+                message.style.opacity = "0";
+                setTimeout(() => message.remove(), 500); // Remove do DOM após o fade-out
+            });
+        }, 3000); // Tempo antes do desaparecimento (3 segundos)
+    });
+</script>
+
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -22,7 +37,7 @@
                             <div class="card-body">
 
                                 <div class="form-group">
-                                    <label for="role">Name</label>
+                                    <label for="role">Nome</label>
                                     <input name="role" type="text" class="form-control" id="role"
                                         value="{{$role->role}}" placeholder="Digite um tipo de usuário">
                                 </div>
@@ -89,7 +104,6 @@
                             <div class="card-footer">
 
                                 <button type="submit" class="btn btn-primary">Salvar</button>
-                                {{-- <a href="{{route('permissoes.create')}}" class="btn btn-success">Cadastrar Permissões</a> --}}
 
                             </div>
                         </form>

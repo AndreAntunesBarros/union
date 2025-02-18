@@ -2,10 +2,6 @@
 
 @section('title', config('app.name'))
 
-@section('content_header')
-<h1 class="m-0 text-dark">Dashboard</h1>
-@stop
-
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -16,7 +12,7 @@
 
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Formulário Tipo Usuário</h3>
+                            <h3 class="card-title">Nova Função</h3>
                         </div>
 
 
@@ -25,15 +21,15 @@
                             <div class="card-body">
 
                                 <div class="form-group">
-                                    <label for="role">Name</label>
+                                    <label for="role">Nome</label>
                                     <input name="role" type="text" class="form-control" id="role"
-                                        placeholder="Digite um tipo de usuário">
+                                        placeholder="Digite a função">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="name">Descrição</label>
                                     <input name="name" type="text" class="form-control" id="name"
-                                        placeholder="Digite um tipo de usuário">
+                                        placeholder="Digite a descrição do função">
                                 </div>
 
                                 <!-- inicio permissoes -->
@@ -81,7 +77,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
                             </div>
                         </form>
                     </div>

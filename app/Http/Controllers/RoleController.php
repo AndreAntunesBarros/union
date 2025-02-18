@@ -7,16 +7,26 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Resource;
 use App\Models\Tabela;
+use Illuminate\Support\Facades\Log;
 class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-      $roles=  Role::paginate(15);
 
-      return view('role.index',compact('roles'));
+        $query = Role::query();
+
+        if ($request->has('table_search')) {
+            $search = $request->input('table_search');
+            $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('role', 'LIKE', "%{$search}%");
+        }
+
+        $roles = $query->paginate(10);
+
+        return view('role.index',compact('roles'));
     }
 
     /**
@@ -39,7 +49,7 @@ class RoleController extends Controller
             $role           =   Role::create($dados);
             $role->resources()->syncWithoutDetaching($request->resource_id);
             flash('Função cadastrada com sucesso')->success();
-            return redirect()->back();
+            return redirect()->route('roles.index');
 
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';
@@ -61,12 +71,10 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        $role      =    Role::findOrfail($id);
-        $resource  = new Resource();
-        $tabelas =   Tabela::all();
-        $resources_list =     $resource->all();
-
-        dump(session()->all());
+        $role     = Role::findOrfail($id);
+        $resource = new Resource();
+        $tabelas = Tabela::all();
+        $resources_list = $resource->all();
 
         return view('role.edit', compact('role', 'resources_list','tabelas'));
     }
@@ -89,11 +97,7 @@ class RoleController extends Controller
 
            $role->update($dados);
            $role->resources()->sync($resources_id);
-
            flash('Função editada com sucesso')->success();
-
-           //dd(session()->all());
-
            return redirect()->back();
 
         } catch (\Throwable $th) {
@@ -108,6 +112,11 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->delete();
+
+        flash('Função excluída com sucesso')->success();
+
+        return redirect()->back();
     }
 }

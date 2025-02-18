@@ -12,14 +12,18 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //->orderBy('created_at','DESC');
-        $users = User::orderBy('created_at','desc')->paginate(10);
 
-        $user = User::find(1);
+        $query = User::query();
 
+        if ($request->has('table_search')) {
+            $search = $request->input('table_search');
+            $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE', "%{$search}%");
+        }
 
+        $users = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('users.index',compact('users'));
     }
@@ -41,8 +45,8 @@ class UserController extends Controller
             $dados =$request->all();
             $user = User::create($dados);
             $user->roles()->syncWithoutDetaching($request->role_id);
-            flash('usuario cadastrado com sucesso')->success()->important();
-            return redirect()->back();
+            flash('Usuário cadastrado com sucesso')->success();
+            return redirect()->route('users.index');
 
 
         } catch (\Throwable $th) {
@@ -58,7 +62,6 @@ class UserController extends Controller
     public function show(string $id)
     {
        $user    =   User::findOrFail($id);
-
        return view('users.show',compact('user'));
     }
 
@@ -68,7 +71,6 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user    =   User::findOrFail($id);
-
         $roles  =   Role::all();
         return view('users.edit',compact('user','roles'));
     }
@@ -78,8 +80,6 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-
         try {
             $user  = User::findOrFail($id);
             $dados = $request->all();
@@ -89,7 +89,6 @@ class UserController extends Controller
                 $dados['password'] = $user->password;
             }
 
-
             $user->update($dados);
 
             if(isset($dados['role_id'])){
@@ -98,13 +97,13 @@ class UserController extends Controller
                $role_id =[];
           }
             $user->roles()->sync($role_id);
-            flash('Atualizado com sucesso')->success()->important();
+            flash('Usuário atualizado com sucesso')->success();
             return redirect()->back();
 
 
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
-            flash($message)->warning()->important();
+            flash($message)->warning();
             return redirect()->back();
         }
     }
@@ -115,13 +114,13 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         try {
-            //code...
-
-
-
+            $user = User::findOrFail($id);
+            $user->delete();
+            flash('Usuário excluído com sucesso')->success();
+            return redirect()->back();
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
-            flash($message)->warning()->important();
+            flash($message)->warning();
             return redirect()->back();
         }
     }

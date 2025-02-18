@@ -2,6 +2,21 @@
 
 @section('title', 'Funções')
 
+@include('flash::message')
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            let flashMessages = document.querySelectorAll('.alert');
+            flashMessages.forEach(function (message) {
+                message.style.transition = "opacity 0.5s";
+                message.style.opacity = "0";
+                setTimeout(() => message.remove(), 500); // Remove do DOM após o fade-out
+            });
+        }, 3000); // Tempo antes do desaparecimento (3 segundos)
+    });
+</script>
+
 
 @section('content_header')
 <h1 class="m-0 text-dark">Funções</h1>
@@ -12,14 +27,17 @@
     <div class="card-header">
         <h3 class="card-title">Lista de Funções</h3>
         <div class="card-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
-                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                    </button>
+            <form method="GET" action="{{ route('roles.index') }}">
+                <div class="input-group input-group-sm" style="width: 200px;">
+                    <input type="text" name="table_search" class="form-control float-right"
+                           placeholder="Pesquisar..." value="{{ request('table_search') }}">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -38,7 +56,7 @@
                     <th>Descrição</th>
                     <th>Permissões</th>
                     <th class="col-1 ">
-                        <a href="{{route('roles.create')}}" class='btn btn-block btn-success btn-sm' data-toggle="tooltip" title='Cadastra uma nova funcao' >
+                        <a href="{{route('roles.create')}}" class='btn btn-block btn-success btn-sm' data-toggle="tooltip" title='Cadastra uma nova função' >
                             <i class="fas  fa-clipboard">
                             </i>
                             Nova
@@ -68,11 +86,15 @@
                             </i>
                             Editar
                         </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash">
-                            </i>
-                            Excluir
-                        </a>
+
+                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta função?')">
+                                <i class="fas fa-trash"></i>
+                                Excluir
+                            </button>
+                        </form>
 
 
                     </th>
