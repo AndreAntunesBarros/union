@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Role;
+
 class UserController extends Controller
 {
     /**
@@ -25,15 +26,16 @@ class UserController extends Controller
 
         $users = $query->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('users.index',compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {   $roles  =   Role::all();
-        return view('users.create',compact('roles'));
+    {
+        $roles  =   Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -42,13 +44,11 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
-            $dados =$request->all();
+            $dados = $request->all();
             $user = User::create($dados);
             $user->roles()->syncWithoutDetaching($request->role_id);
             flash('Usuário cadastrado com sucesso')->success();
             return redirect()->route('users.index');
-
-
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
             flash($message)->warning()->important();
@@ -61,8 +61,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-       $user    =   User::findOrFail($id);
-       return view('users.show',compact('user'));
+        $user    =   User::findOrFail($id);
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -72,7 +72,7 @@ class UserController extends Controller
     {
         $user    =   User::findOrFail($id);
         $roles  =   Role::all();
-        return view('users.edit',compact('user','roles'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -84,23 +84,21 @@ class UserController extends Controller
             $user  = User::findOrFail($id);
             $dados = $request->all();
 
-            if(!$dados['password']){
+            if (!$dados['password']) {
 
                 $dados['password'] = $user->password;
             }
 
             $user->update($dados);
 
-            if(isset($dados['role_id'])){
+            if (isset($dados['role_id'])) {
                 $role_id = $dados['role_id'];
-          }else{
-               $role_id =[];
-          }
+            } else {
+                $role_id = [];
+            }
             $user->roles()->sync($role_id);
             flash('Usuário atualizado com sucesso')->success();
             return redirect()->back();
-
-
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
             flash($message)->warning();

@@ -33,16 +33,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
- Route::group(['middleware' => 'access.control.list'],function(){
+Route::group(['middleware' => 'access.control.list'], function () {
 
     Route::resource('roles', RoleController::class);
     Route::resource('permissoes', ResourceController::class);
     Route::resource('users', UserController::class);
-
 });

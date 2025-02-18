@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -8,6 +9,7 @@ use App\Models\Role;
 use App\Models\Resource;
 use App\Models\Tabela;
 use Illuminate\Support\Facades\Log;
+
 class RoleController extends Controller
 {
     /**
@@ -26,16 +28,17 @@ class RoleController extends Controller
 
         $roles = $query->paginate(10);
 
-        return view('role.index',compact('roles'));
+        return view('role.index', compact('roles'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {   $tabelas =   Tabela::all();
+    {
+        $tabelas =   Tabela::all();
         $resources =    Resource::all();
-        return view('role.create',compact('resources','tabelas'));
+        return view('role.create', compact('resources', 'tabelas'));
     }
 
     /**
@@ -50,11 +53,9 @@ class RoleController extends Controller
             $role->resources()->syncWithoutDetaching($request->resource_id);
             flash('Função cadastrada com sucesso')->success();
             return redirect()->route('roles.index');
-
         } catch (\Throwable $th) {
             $message    =   env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sau requisicao!';
             flash($message)->error();
-
         }
     }
 
@@ -76,7 +77,7 @@ class RoleController extends Controller
         $tabelas = Tabela::all();
         $resources_list = $resource->all();
 
-        return view('role.edit', compact('role', 'resources_list','tabelas'));
+        return view('role.edit', compact('role', 'resources_list', 'tabelas'));
     }
 
     /**
@@ -85,21 +86,20 @@ class RoleController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-           $role    =   Role::find($id);
-           $dados   =   $request->all();
+            $role    =   Role::find($id);
+            $dados   =   $request->all();
 
-           //verificando se veio algum valor dos campos checkbox, senao atribui um array vazio para o campo
-           if(isset($dados['resource_id'])){
-                 $resources_id = $dados['resource_id'];
-           }else{
-                $resources_id =[];
-           }
+            //verificando se veio algum valor dos campos checkbox, senao atribui um array vazio para o campo
+            if (isset($dados['resource_id'])) {
+                $resources_id = $dados['resource_id'];
+            } else {
+                $resources_id = [];
+            }
 
-           $role->update($dados);
-           $role->resources()->sync($resources_id);
-           flash('Função editada com sucesso')->success();
-           return redirect()->back();
-
+            $role->update($dados);
+            $role->resources()->sync($resources_id);
+            flash('Função editada com sucesso')->success();
+            return redirect()->back();
         } catch (\Throwable $th) {
             $message = env('APP_DEBUG') ? $th->getMessage() : 'Erro ao processar sua requisição!';
             flash($message)->error();
